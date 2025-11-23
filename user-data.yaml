@@ -1,0 +1,9 @@
+# base64 -b 0 user-data.yaml > user-data.b64
+# and use user-data.b64 to push to vm
+
+#cloud-config
+package_update: true
+packages:
+  - curl
+  - htop
+
