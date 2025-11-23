@@ -1,11 +1,15 @@
 
-resource "docker_image" "debian" {
-  name = var.debian_image
+resource "docker_image" "debian_custom" {
+  name = "debian-bookworm-cloudinit:local"
+  build {
+    context    = "${path.module}/image"
+    dockerfile = "${path.module}/image/Dockerfile"
+  }
 }
 
 resource "docker_container" "linux_vm" {
   name  = var.container_name
-  image = docker_image.debian.image_id
+  image = docker_image.debian_custom.image_id
 
   # Keep the container alive
   command     = ["sleep", "infinity"]
